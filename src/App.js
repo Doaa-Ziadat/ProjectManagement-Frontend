@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 // import Navbar from "./pages/Navbar";
-import Projects from "./pages/Projects";
+import ProjectPage from "./pages/ProjectPage";
 
 import { ReactSession } from "react-client-session";
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
-        <Route path="/projects" element={<Projects />} />
+        <Route path="/projectPage" element={<ProjectPage />} />
       </Routes>
     </BrowserRouter>
   );

@@ -12,10 +12,10 @@ function Project({
     <div>
       <ProjectItem key={projectId}>
         <div> Project Name :{name}</div>
-        <div> Timeline : {timeline}</div>
+        {/* <div> Timeline : {timeline}</div>
         <div> Priority:{priority}</div>
         <div> Created By :{createdBy}</div>
-        <div>Created At:{createdAt}</div>
+        <div>Created At:{createdAt}</div> */}
       </ProjectItem>
     </div>
   );
@@ -23,7 +23,8 @@ function Project({
 
 const ProjectItem = styled.li`
   flex-basis: 31%;
-  background: #fff3f3;
+  /* background: #fff3f3; */
+  color: black;
   border-radius: 10px;
   margin-bottom: 5%;
   padding: 20px 12px;

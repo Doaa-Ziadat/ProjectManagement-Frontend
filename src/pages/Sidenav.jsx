@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
+import AddProject from "./AddProject";
 function Sidenav() {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    console.log("in projects frontend");
+    fetch("http://localhost:4000/projects", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setProjects(data);
+      });
+  }, []);
   const logout = () => {
     fetch("http://localhost:4000/logout", {
       method: "GET",
@@ -30,8 +44,24 @@ function Sidenav() {
         <NavbarLink to="/">Home</NavbarLink>
         <NavbarLink to="/">Notfication</NavbarLink>
         <NavbarLink to="/">My Tasks</NavbarLink>
-        <NavbarLink to="/projects">Projects</NavbarLink>
       </div>
+      <AddProject />
+      {projects.map((pr) => (
+        // <ProjectsList
+        //   projectId={pr.id}
+        //   name={pr.name}
+        //   timeline={pr.timeline.slice(0, 10)}
+        //   priority={pr.priority}
+        //   createdBy={pr.userid}
+        //   createdAt={pr.createdat.slice(0, 10)}
+        // />
+        <li key={pr.id}>
+          <Link to={`/projectPage`} state={{ from: pr }}>
+            {pr.name}
+          </Link>
+        </li>
+      ))}
+
       <div>
         <button onClick={logout}>Log out </button>
       </div>

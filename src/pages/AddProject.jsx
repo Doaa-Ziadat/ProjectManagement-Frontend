@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ReactSession } from "react-client-session";
 import Modal from "react-modal";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
+import "../style/addProject.css";
 Modal.setAppElement("#root");
 function AddProject() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,62 +50,88 @@ function AddProject() {
       })
       .then((d) => {
         console.log(d);
-        if (d.success) window.location.href = " http://localhost:3000/projects";
+        if (d.success) window.location.href = " http://localhost:3000/";
       });
   }
   return (
     <Container>
-      <button onClick={() => setIsOpen(true)}>Add Project </button>
-      <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
-        <button onClick={() => setIsOpen(false)}>&larr;</button>
+      <button onClick={() => setIsOpen(true)}>Add Project </button>{" "}
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        className="modalReact"
+      >
+        <button className="backButton" onClick={() => setIsOpen(false)}>
+          &larr;
+        </button>
 
-        <button onClick={() => setIsOpen(false)}>X</button>
-        <h2>New Project </h2>
-
-        <div>Project Name </div>
-        <input
-          type="text"
-          name="projectName"
-          id="projectName"
-          onChange={(e) => setprojectName(e.target.value)}
-        />
-        <div>timeline</div>
-        <DatePickerComponent
-          placeholder="Enter duo date"
-          value={timeline}
-          min={today}
-          onChange={(e) => setTimeline(e.target.value)}
-          // start="Year"
-          // depth="Day"
-        ></DatePickerComponent>
-        <div> priority</div>
-        <input
-          type="text"
-          name="priority"
-          id="priority"
-          onChange={(e) => setpriority(e.target.value)}
-        />
-        <div>
+        <button className="closeButton" onClick={() => setIsOpen(false)}>
+          X
+        </button>
+        <div className="modalContent">
+          <h1>New Project </h1>
+          <div>Project name </div>
+          <input
+            type="text"
+            name="projectName"
+            id="projectName"
+            onChange={(e) => setprojectName(e.target.value)}
+          />
+          <div>Timeline</div>
+          <div className="dateReact">
+            <DatePickerComponent
+              className="datee"
+              placeholder="Enter duo date"
+              value={timeline}
+              min={today}
+              onChange={(e) => setTimeline(e.target.value)}
+              // start="Year"
+              // depth="Day"
+            ></DatePickerComponent>
+          </div>
+          <div> Priority</div>
+          <input
+            type="text"
+            name="priority"
+            id="priority"
+            onChange={(e) => setpriority(e.target.value)}
+          />
           {/* modal 2 start  */}
-          <button onClick={() => setIsOpen2(true)}>Continue </button>
-          <Modal isOpen={isOpen2} onRequestClose={controlClose}>
-            <button onClick={() => setIsOpen2(false)}>&larr;</button>
+          <button className="continueButton" onClick={() => setIsOpen2(true)}>
+            Continue
+          </button>{" "}
+        </div>
+        <Modal
+          isOpen={isOpen2}
+          onRequestClose={controlClose}
+          className="modalReact2"
+        >
+          <button onClick={() => setIsOpen2(false)} className="backButton">
+            &larr;
+          </button>
 
-            <button onClick={controlClose}>X</button>
-            <h2>What do you want to do first?</h2>
+          <button onClick={controlClose} className="closeButton">
+            X
+          </button>
+          <div className="modalContent2">
+            <h1>What do you want to do first?</h1>
             <ul>
               <li>Start Adding tasks </li>
               <li>Share with teammates</li>
             </ul>
-            <button onClick={addProject}> Go to project</button>
-          </Modal>
-        </div>
+            <button onClick={addProject} className="goButton">
+              {" "}
+              Go to project
+            </button>
+          </div>
+        </Modal>
       </Modal>
     </Container>
   );
 }
 
 const Container = styled.div`
-  margin: 20px;
+  margin: 40px;
 `;
+
 export default AddProject;

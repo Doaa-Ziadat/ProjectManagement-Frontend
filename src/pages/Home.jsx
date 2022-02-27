@@ -35,7 +35,7 @@ function Home(props) {
         <Container1>
           <Navbar openNavbar={openNavbar} setOpenNavber={setOpenNavber} />
           {!openNavbar && <HomeContent />}
-          {/* <Footer />) */}
+          {/* <Footer //>) */}
         </Container1>
       )}
     </div>

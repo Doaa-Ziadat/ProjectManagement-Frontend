@@ -70,6 +70,9 @@ function Sidenav() {
 }
 const Container = styled.div`
   /* padding: 20pxs; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   color: white;
   background-color: #000000da;
   display: flex;

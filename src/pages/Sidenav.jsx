@@ -42,10 +42,11 @@ function Sidenav() {
       </a>
       <div>
         <NavbarLink to="/">Home</NavbarLink>
-        <NavbarLink to="/">Notfication</NavbarLink>
+        <NavbarLink to="/notifications">Notfications</NavbarLink>
         <NavbarLink to="/">My Tasks</NavbarLink>
       </div>
       <AddProject />
+      {/* projects :*/}
       {projects.map((pr) => (
         // <ProjectsList
         //   projectId={pr.id}
@@ -74,7 +75,7 @@ const Container = styled.div`
   position: sticky;
   top: 0;
   color: white;
-  background-color: #000000da;
+  background-color: #252628;
   display: flex;
   flex-direction: column;
   flex-basis: 15%;

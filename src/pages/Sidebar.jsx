@@ -3,6 +3,32 @@ import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import Input from "./Input";
 const Sidebar = () => {
+  function signup(event) {
+    event.preventDefault();
+    console.log(event.target.elements);
+    const data = {
+      name: event.target.elements.name.value,
+      email: event.target.elements.email.value,
+      password: event.target.elements.password.value,
+      passwordConfirm: event.target.elements.passwordConfirm.value,
+    };
+    fetch("http://localhost:4000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
+    })
+      .then((dataa) => {
+        return dataa.json();
+      })
+      .then((d) => {
+        console.log(d);
+        if (d.success) window.location.href = " http://localhost:3000/";
+      });
+  }
   return (
     <Container>
       <LogoWrapper>
@@ -11,9 +37,9 @@ const Sidebar = () => {
           Project <span>Management</span>
         </h3>
       </LogoWrapper>
-      <Form action="http://localhost:4000/signup" method="POST">
+      <Form onSubmit={signup}>
         <h3>Sign Up</h3>
-        <Input placeholder="Full Name" name="name" />
+        <Input type="text" placeholder="Full Name" name="name" />
         <Input type="email" placeholder="Email" name="email" />
         <Input type="password" placeholder="Password" name="password" />
         <Input
@@ -30,10 +56,9 @@ const Sidebar = () => {
         </Terms>
         <h4>
           Already have an account?{" "}
-          <span>
-            {" "}
-            <a href="/Login"> Sign in</a>
-          </span>
+          <a href="/Login">
+            <span>Sign in</span>
+          </a>
         </h4>
       </div>
     </Container>

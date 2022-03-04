@@ -5,29 +5,42 @@ import Footer from "./Footer";
 import HomeContent from "./HomeContent";
 import Sidenav from "./Sidenav";
 import AddProject from "./AddProject";
+import Notifications from "./Notifications";
+import Cookies from "universal-cookie";
 function Home(props) {
-  const [openNavbar, setOpenNavber] = useState(false);
-  const [cookies, setcookies] = useState([]);
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const cookies = new Cookies();
 
-  useEffect(() => {
-    fetch("http://localhost:4000/getCookies", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setcookies(data);
-      });
-  }, []);
+  const [openNavbar, setOpenNavber] = useState(false);
+  const [user, setUser] = useState(cookies.get("user"));
+  // useEffect(() => {
+  //   fetch("http://localhost:4000/getCookies", {
+  //     method: "GET",
+  //     credentials: "include",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setcookies(data);
+  //     });
+  // }, []);
+
+  // if (!cookies.loggedIn) {
+  //   return;
+  // }
+
   return (
     <div>
-      {cookies.loggedIn ? (
+      {user ? (
         <Container2>
           <Sidenav />
           <Page>
+            <div>welcome </div>
             <AddProject />
+            <button>
+              <a style={{ color: "black" }} href="/notifications">
+                Notifications
+              </a>
+            </button>
             <Content></Content>
           </Page>
         </Container2>
@@ -43,8 +56,8 @@ function Home(props) {
 }
 
 const Page = styled.div`
-  display: flex;
-  flex-direction: row;
+  /* display: flex;
+  flex-direction: row; */
 `;
 const Content = styled.div``;
 

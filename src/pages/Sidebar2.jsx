@@ -66,9 +66,9 @@ const Sidebar2 = () => {
         </Terms> */}
         <h4>
           Don't have an account?{" "}
-          <span>
-            <a href="/Signup"> Sign up</a>
-          </span>
+          <a href="/Signup">
+            <span>Sign up </span>
+          </a>
         </h4>
       </div>
     </Container>

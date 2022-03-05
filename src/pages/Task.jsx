@@ -10,6 +10,8 @@ export default function Task(props) {
   const [collapsed, setCollapsed] = useState(true); //false
   const [formAction, setFormAction] = useState("");
 
+  const [name, setName] = useState(task.name);
+
   function setUrgency(event) {
     setUrgencyLevel(event.target.attributes.urgency.value);
   }
@@ -54,13 +56,12 @@ export default function Task(props) {
     }
 
     if (newStatus !== "") {
-      moveTask(task.id, newStatus);
+      moveTask(task, newStatus);
     }
   }
 
   function handleMoveRight() {
     let newStatus = "";
-    console.log("in move right");
     console.log(task);
     if (task.processlabel === "To Do") {
       newStatus = "Doing";
@@ -69,7 +70,7 @@ export default function Task(props) {
     }
 
     if (newStatus !== "") {
-      moveTask(task.id, newStatus);
+      moveTask(task, newStatus);
     }
   }
 
@@ -86,6 +87,7 @@ export default function Task(props) {
           placeholder="Enter Title"
           disabled={collapsed}
           defaultValue={task.name}
+          onChange={(e) => setName(e.target.value)}
         />
         <textarea
           rows="2"

@@ -63,7 +63,6 @@ const Projects = () => {
   var today = new Date();
   const [priority, setpriority] = useState("");
 
-  // const [tasks, setTasks] = useState([]);
   const [tasks, setTasks] = useState([]);
 
   const [usersId, setUsersId] = useState([]);
@@ -199,6 +198,7 @@ const Projects = () => {
 
   //edit task
   const editTask = (name, id, edittimeline, editpriority, processLabel) => {
+    console.log(edittimeline);
     const postData = {
       name: name,
       id: id,
@@ -208,6 +208,7 @@ const Projects = () => {
       // userId: from.userId,
       // TODO: who assigned to it the task
     };
+    console.log("edit in frontend", postData);
     fetch("http://localhost:4000/edit-task", {
       method: "POST",
       headers: {
@@ -224,6 +225,34 @@ const Projects = () => {
       });
   };
 
+  const editTaskPublic = (task, newStatus) => {
+    console.log(task);
+    console.log(newStatus);
+    const postData = {
+      name: task.name,
+      id: task.id,
+      projectId: task.projectid,
+      timeline: task.timeline,
+      priority: task.priority,
+      processlabel: newStatus,
+      //userId who assigned to it the task
+    };
+    console.log("edit in frontend", postData);
+    fetch("http://localhost:4000/edit-task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+      credentials: "include",
+    })
+      .then((dataa) => {
+        return dataa.json();
+      })
+      .then((d) => {
+        if (d.success) setedits(!edits);
+      });
+  };
   //delete task
   const deleteTask = (cardId) => {
     console.log("on delete ");
@@ -258,9 +287,9 @@ const Projects = () => {
     else if (sourceLaneId === "lane2" && targetLaneId === "lane3")
       proccessLabel = "Done";
     else return false;
-
+    console.log(cardDetails);
     editTask(
-      cardDetails.name,
+      cardDetails.title,
       cardId,
       cardDetails.description,
       cardDetails.label,
@@ -292,40 +321,39 @@ const Projects = () => {
       },
     ]);
   }
-  function addTask2(taskToAdd) {
-    // console.log(taskToAdd);
-    // let filteredTasks = tasks.filter((task) => {
-    //   return task.id !== taskToAdd.id;
-    // });
+  // function addTask2(taskToAdd) {
+  //   // console.log(taskToAdd);
+  //   // let filteredTasks = tasks.filter((task) => {
+  //   //   return task.id !== taskToAdd.id;
+  //   // });
 
-    // let newTaskList = [...filteredTasks, taskToAdd];
-    addTask(taskToAdd);
-    // setTasks(newTaskList);
-  }
+  //   // let newTaskList = [...filteredTasks, taskToAdd];
+  //   // setTasks(newTaskList);
+  // }
 
-  function deleteTask2(taskId) {
-    let filteredTasks = tasks.filter((task) => {
-      return task.id !== taskId;
-    });
+  // function deleteTask2(taskId) {
+  //   // let filteredTasks = tasks.filter((task) => {
+  //   //   return task.id !== taskId;
+  //   // });
+  //   // deleteTask(taskId);
+  //   // setTasks(filteredTasks);
+  // }
 
-    setTasks(filteredTasks);
-  }
+  // function moveTask(id, newStatus) {
+  //   let task = tasks.filter((task) => {
+  //     return task.id === id;
+  //   })[0];
 
-  function moveTask(id, newStatus) {
-    let task = tasks.filter((task) => {
-      return task.id === id;
-    })[0];
+  //   let filteredTasks = tasks.filter((task) => {
+  //     return task.id !== id;
+  //   });
 
-    let filteredTasks = tasks.filter((task) => {
-      return task.id !== id;
-    });
+  //   task.processlabel = newStatus;
 
-    task.processlabel = newStatus;
+  //   let newTaskList = [...filteredTasks, task];
 
-    let newTaskList = [...filteredTasks, task];
-
-    setTasks(newTaskList);
-  }
+  //   setTasks(newTaskList);
+  // }
 
   return (
     <Container>
@@ -411,25 +439,25 @@ const Projects = () => {
               <StatusLine
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
-                addTask={addTask2}
-                deleteTask={deleteTask2}
-                moveTask={moveTask}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                moveTask={editTaskPublic}
                 status="To Do"
               />
               <StatusLine
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
-                addTask={addTask2}
-                deleteTask={deleteTask2}
-                moveTask={moveTask}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                moveTask={editTaskPublic}
                 status="Doing"
               />
               <StatusLine
                 tasks={tasks}
                 addEmptyTask={addEmptyTask}
-                addTask={addTask2}
-                deleteTask={deleteTask2}
-                moveTask={moveTask}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                moveTask={editTaskPublic}
                 status="Done"
               />
             </section>

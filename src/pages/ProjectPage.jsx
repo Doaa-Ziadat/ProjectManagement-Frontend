@@ -3,14 +3,13 @@ import { useLocation } from "react-router-dom";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 import "../style/projectPage.css";
 import "../style/projectPage.scss";
-
 import styled from "styled-components";
 import Project from "./Project";
 import Sidenav from "./Sidenav";
 import Modal from "react-modal";
 import Invite from "./Invite";
+import ProjectMembers from "./ProjectMembers";
 import Board from "react-trello";
-import ProjectPagePublic from "./ProjectPagePublic";
 import StatusLine from "./StatusLine";
 Modal.setAppElement("#root");
 
@@ -73,8 +72,6 @@ const Projects = () => {
   const projectId = from.id;
   const publicProject = from.publicflag;
 
-  const [todoo, setTotodoo] = useState();
-
   // get user projects
   useEffect(() => {
     console.log("in projects frontend");
@@ -88,7 +85,6 @@ const Projects = () => {
         const todo = data.filter((t) => t.processlabel === "To Do");
         const doing = data.filter((t) => t.processlabel === "Doing");
         const done = data.filter((t) => t.processlabel === "Done");
-        setTotodoo(todo);
         setTasks(todo.concat(doing).concat(done));
 
         const length = data.length;
@@ -121,7 +117,11 @@ const Projects = () => {
             {
               id: "lane2",
               title: "Doing",
-              style: { backgroundColor: "#0a7f8fb8", color: "white" }, // Style of Lane
+              style: {
+                backgroundColor: "#0a7f8fb8",
+                color: "white",
+                margin: "0px 1%",
+              }, // Style of Lane
 
               label: doingLength + "/" + length,
 
@@ -321,46 +321,13 @@ const Projects = () => {
       },
     ]);
   }
-  // function addTask2(taskToAdd) {
-  //   // console.log(taskToAdd);
-  //   // let filteredTasks = tasks.filter((task) => {
-  //   //   return task.id !== taskToAdd.id;
-  //   // });
-
-  //   // let newTaskList = [...filteredTasks, taskToAdd];
-  //   // setTasks(newTaskList);
-  // }
-
-  // function deleteTask2(taskId) {
-  //   // let filteredTasks = tasks.filter((task) => {
-  //   //   return task.id !== taskId;
-  //   // });
-  //   // deleteTask(taskId);
-  //   // setTasks(filteredTasks);
-  // }
-
-  // function moveTask(id, newStatus) {
-  //   let task = tasks.filter((task) => {
-  //     return task.id === id;
-  //   })[0];
-
-  //   let filteredTasks = tasks.filter((task) => {
-  //     return task.id !== id;
-  //   });
-
-  //   task.processlabel = newStatus;
-
-  //   let newTaskList = [...filteredTasks, task];
-
-  //   setTasks(newTaskList);
-  // }
 
   return (
     <Container>
       <Sidenav />
       {!publicProject ? (
         <Container1>
-          <h1> {from.name}</h1>
+          <h1 style={{ fontWeight: "400" }}> {from.name}</h1>
 
           {/* <Projectss>
             {tasks.map((pr) => (
@@ -426,6 +393,11 @@ const Projects = () => {
             style={{
               backgroundColor: "#f0f0f0",
               backgroundColor: "white",
+              marginLeft: "15%",
+              width: "100% ",
+              height: "fit-content",
+              border: "1px solid #9ad3bc",
+              padding: "5% 5%",
             }} // Style of BoardWrapper
             data={data}
           />
@@ -434,6 +406,7 @@ const Projects = () => {
         <div className="section2">
           <h1> {from.name}</h1>
           <Invite projectId={projectId} />
+          <ProjectMembers projectId={projectId} />
           <main>
             <section>
               <StatusLine

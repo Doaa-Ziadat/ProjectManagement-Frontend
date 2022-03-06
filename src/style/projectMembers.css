@@ -1,0 +1,11 @@
+.modalReactMembers {
+  background: white;
+  position: absolute;
+  /* bottom: -7px; */
+  top: 0px;
+  right: 0px;
+  width: 480px;
+  padding: 5px 20px;
+  height: 100%;
+  border: 1px solid rgba(128, 128, 128, 0.171);
+}

@@ -83,7 +83,13 @@ function Invite({ projectId }) {
             id="email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <button className="inviteButton" onClick={invite}>
+          <button
+            className="inviteButton"
+            onClick={() => {
+              invite();
+              setIsOpen(false);
+            }}
+          >
             Invite
           </button>
         </div>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import "../style/sidenav.css";
 import { Link } from "react-router-dom";
 import AddProject from "./AddProject";
+
 function Sidenav() {
   const [projects, setProjects] = useState([]);
 
@@ -45,24 +47,30 @@ function Sidenav() {
         <NavbarLink to="/notifications">Notfications</NavbarLink>
         <NavbarLink to="/">My Tasks</NavbarLink>
       </div>
-      <AddProject />
-      {/* projects :*/}
-      {projects.map((pr) => (
-        // <ProjectsList
-        //   projectId={pr.id}
-        //   name={pr.name}
-        //   timeline={pr.timeline.slice(0, 10)}
-        //   priority={pr.priority}
-        //   createdBy={pr.userid}
-        //   createdAt={pr.createdat.slice(0, 10)}
-        // />
-        <li key={pr.id}>
-          <Link to={`/projectPage`} state={{ from: pr }}>
-            {pr.name}
-          </Link>
-        </li>
-      ))}
 
+      <div className="projectList">
+        <div className="projectItem">
+          <h4>Projects:</h4>
+          <AddProject />
+          {projects.map((pr) => (
+            // <ProjectsList
+            //   projectId={pr.id}
+            //   name={pr.name}
+            //   timeline={pr.timeline.slice(0, 10)}
+            //   priority={pr.priority}
+            //   createdBy={pr.userid}
+            //   createdAt={pr.createdat.slice(0, 10)}
+            // />
+            <li key={pr.id}>
+              <Link to={`/projectPage`} state={{ from: pr }}>
+                {pr.name}
+              </Link>
+            </li>
+          ))}
+        </div>
+
+        {/* <AddProject /> */}
+      </div>
       <div>
         <button onClick={logout}>Log out </button>
       </div>

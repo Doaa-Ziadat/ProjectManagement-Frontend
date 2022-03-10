@@ -72,7 +72,9 @@ const Projects = () => {
   const projectId = from.id;
   const publicProject = from.publicflag;
 
-  // get user projects
+  const [members, setMembers] = useState([]);
+
+  // get user tasks
   useEffect(() => {
     console.log("in projects frontend");
     fetch(`http://localhost:4000/tasks/${projectId}`, {
@@ -100,6 +102,7 @@ const Projects = () => {
                 backgroundColor: "#c44a4a",
                 color: "white",
                 width: "fit-content",
+                marginRight: "30px",
               }, // Style of Lane
               // cardStyle: { backgroundColor: "" }, // Style of Card
               label: todoLength + "/" + length,
@@ -120,7 +123,7 @@ const Projects = () => {
               style: {
                 backgroundColor: "#0a7f8fb8",
                 color: "white",
-                margin: "0px 1%",
+                marginRight: "30px",
               }, // Style of Lane
 
               label: doingLength + "/" + length,
@@ -154,8 +157,26 @@ const Projects = () => {
           ],
         });
       });
+
+    if (publicProject) {
+      getMembers(from.id);
+    }
   }, [from, edits]);
 
+  const getMembers = () => {
+    fetch(`http://localhost:4000/get-members/${projectId}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setMembers(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   //add task
   const addTask = (task) => {
     let postData = {};
@@ -167,6 +188,7 @@ const Projects = () => {
         timeline: timeline,
         priority: priority,
         processlabel: "To Do",
+        userid: "",
         //userId who assigned to it the task
       };
     } else {
@@ -176,6 +198,7 @@ const Projects = () => {
         timeline: task.timeline,
         priority: task.priority,
         processlabel: "To Do",
+        userid: task.userid,
         //userId who assigned to it the task
       };
     }
@@ -198,7 +221,6 @@ const Projects = () => {
 
   //edit task
   const editTask = (name, id, edittimeline, editpriority, processLabel) => {
-    console.log(edittimeline);
     const postData = {
       name: name,
       id: id,
@@ -235,6 +257,7 @@ const Projects = () => {
       timeline: task.timeline,
       priority: task.priority,
       processlabel: newStatus,
+      userid: task.userid ? task.userid : 0,
       //userId who assigned to it the task
     };
     console.log("edit in frontend", postData);
@@ -318,6 +341,8 @@ const Projects = () => {
         priority: "",
         processlabel: status,
         timeline: "",
+        userid: 0,
+        isCollapsed: "false",
       },
     ]);
   }
@@ -327,25 +352,12 @@ const Projects = () => {
       <Sidenav />
       {!publicProject ? (
         <Container1>
-          <h1 style={{ fontWeight: "400" }}> {from.name}</h1>
-
-          {/* <Projectss>
-            {tasks.map((pr) => (
-              <Project
-                projectId={pr.id}
-                name={pr.name}
-                timeline={pr.timeline.slice(0, 10)}
-                priority={priority}
-                createdBy={pr.userid}
-                createdAt={pr.createdat.slice(0, 10)}
-                publicflag={pr.publicflag}
-              />
-            ))}
-          </Projectss> */}
-
-          <button className="addTask" onClick={() => setIsOpen(true)}>
-            Add Task
-          </button>
+          <div className="section2Top">
+            <h1> {from.name}</h1>
+            <button className="addTask" onClick={() => setIsOpen(true)}>
+              Add Task
+            </button>
+          </div>
 
           <Modal
             isOpen={isOpen}
@@ -393,7 +405,7 @@ const Projects = () => {
             style={{
               backgroundColor: "#f0f0f0",
               backgroundColor: "white",
-              marginLeft: "15%",
+              marginLeft: "3%",
               width: "100% ",
               height: "fit-content",
               border: "1px solid #9ad3bc",
@@ -403,38 +415,52 @@ const Projects = () => {
           />
         </Container1>
       ) : (
-        <div className="section2">
-          <h1> {from.name}</h1>
-          <Invite projectId={projectId} />
-          <ProjectMembers projectId={projectId} />
-          <main>
-            <section>
-              <StatusLine
-                tasks={tasks}
-                addEmptyTask={addEmptyTask}
-                addTask={addTask}
-                deleteTask={deleteTask}
-                moveTask={editTaskPublic}
-                status="To Do"
-              />
-              <StatusLine
-                tasks={tasks}
-                addEmptyTask={addEmptyTask}
-                addTask={addTask}
-                deleteTask={deleteTask}
-                moveTask={editTaskPublic}
-                status="Doing"
-              />
-              <StatusLine
-                tasks={tasks}
-                addEmptyTask={addEmptyTask}
-                addTask={addTask}
-                deleteTask={deleteTask}
-                moveTask={editTaskPublic}
-                status="Done"
-              />
-            </section>
-          </main>
+        <div>
+          <div className="section2Top">
+            <h1> {from.name}</h1>
+            <Invite projectId={projectId} />
+            <ProjectMembers
+              projectId={projectId}
+              members={members}
+              setMembers={setMembers}
+            />
+          </div>
+          <div className="section2">
+            <main>
+              <section>
+                <StatusLine
+                  tasks={tasks}
+                  addEmptyTask={addEmptyTask}
+                  addTask={addTask}
+                  deleteTask={deleteTask}
+                  moveTask={editTaskPublic}
+                  status="To Do"
+                  members={members}
+                  setMembers={setMembers}
+                />
+                <StatusLine
+                  tasks={tasks}
+                  addEmptyTask={addEmptyTask}
+                  addTask={addTask}
+                  deleteTask={deleteTask}
+                  moveTask={editTaskPublic}
+                  status="Doing"
+                  members={members}
+                  setMembers={setMembers}
+                />
+                <StatusLine
+                  tasks={tasks}
+                  addEmptyTask={addEmptyTask}
+                  addTask={addTask}
+                  deleteTask={deleteTask}
+                  moveTask={editTaskPublic}
+                  status="Done"
+                  members={members}
+                  setMembers={setMembers}
+                />
+              </section>
+            </main>
+          </div>
         </div>
       )}
     </Container>

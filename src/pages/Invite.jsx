@@ -59,7 +59,6 @@ function Invite({ projectId }) {
   return (
     <div>
       <button
-        className="inviteButton"
         onClick={() => {
           setIsOpen(true);
         }}

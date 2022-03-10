@@ -1,24 +1,57 @@
 import "../style/task.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DatePickerComponent } from "@syncfusion/ej2-react-calendars";
 
 export default function Task(props) {
-  const { addTask, deleteTask, moveTask, task } = props;
+  const {
+    addTask,
+    deleteTask,
+    moveTask,
+    task,
+    members,
+    setMembers,
+    taskExist,
+    setTaskExist,
+  } = props;
 
   const [urgencyLevel, setUrgencyLevel] = useState(task.priority);
   const [timeline, setTimeline] = useState(task.timeline);
-  const [collapsed, setCollapsed] = useState(true); //false
+  const [collapsed, setCollapsed] = useState(!task.isCollapsed); //false
   const [formAction, setFormAction] = useState("");
 
   const [name, setName] = useState(task.name);
+  const [assignedName, setAssignedName] = useState("");
+
+  const [assignedTo, setAssignedTo] = useState(
+    task.userid ? `assigned to: ${assignedName}` : "assign task "
+  );
+  const [assignedId, setAssignedId] = useState(task.userid);
 
   function setUrgency(event) {
     setUrgencyLevel(event.target.attributes.urgency.value);
   }
   console.log("task in task", task);
-  //   if (task) {
-  //     setCollapsed = true;
-  //   }
+  // if (task) {
+  //   setCollapsed = true;
+  // }
+  console.log(members);
+  console.log(assignedId);
+  useEffect(() => {
+    console.log("in use effect");
+    fetch(`http://localhost:4000/getEmail/${task.userid}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data[0]);
+        setAssignedName(data[0].name);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -33,11 +66,14 @@ export default function Task(props) {
           priority: urgencyLevel,
           processlabel: task.processlabel,
           timeline: timeline,
+          userid: assignedId,
           isCollapsed: true,
         };
-
-        addTask(newTask);
         setCollapsed(true);
+        // if it comes from + then call add , else it come from edit call movetask
+        console.log("Exist?", taskExist);
+        if (taskExist) moveTask(newTask, task.processlabel);
+        else addTask(newTask);
       }
     }
 
@@ -89,6 +125,32 @@ export default function Task(props) {
           defaultValue={task.name}
           onChange={(e) => setName(e.target.value)}
         />
+        <br />
+        <span class="dropdown">
+          <input
+            className=" title input"
+            placeholder={assignedName}
+            value={assignedName}
+          />
+
+          <div class="dropdown-content">
+            {members.map((member) => (
+              <button
+                className="dropdown-members"
+                onClick={() => {
+                  setAssignedName(member.name);
+                  // setAssignedTo
+                  let id = member.id;
+                  setAssignedId(id);
+                }}
+              >
+                <h3>{member.name}</h3>
+                <div>{member.email}</div>
+              </button>
+            ))}
+          </div>
+        </span>
+
         <textarea
           rows="2"
           className="description input"
@@ -142,9 +204,21 @@ export default function Task(props) {
             high
           </label>
         </div>
+
+        {/* <span class="dropdown">
+          <button className=" button dropbtn">Assign</button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </span> */}
+
         <button
           onClick={() => {
             setFormAction("save");
+            // the user pressed edit not +
+            if (collapsed) setTaskExist(true);
           }}
           className="button"
         >

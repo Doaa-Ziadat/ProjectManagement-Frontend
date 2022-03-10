@@ -1,11 +1,22 @@
 import "../style/statusLine.scss";
 import Task from "./Task";
+import React, { useState } from "react";
 
 export default function StatusLine(props) {
-  const { status, tasks, addTask, deleteTask, addEmptyTask, moveTask } = props;
+  const {
+    status,
+    tasks,
+    addTask,
+    deleteTask,
+    addEmptyTask,
+    moveTask,
+    members,
+    setMembers,
+  } = props;
   let taskList, tasksForStatus;
-
+  const [taskExist, setTaskExist] = useState(false);
   function handleAddEmpty() {
+    setTaskExist(false);
     addEmptyTask(status);
   }
 
@@ -29,6 +40,10 @@ export default function StatusLine(props) {
           moveTask={(id, status) => moveTask(id, status)}
           key={task.id}
           task={task}
+          members={members}
+          setMembers={setMembers}
+          taskExist={taskExist}
+          setTaskExist={setTaskExist}
         />
       );
     });

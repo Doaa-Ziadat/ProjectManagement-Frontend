@@ -63,6 +63,7 @@ function Notifications() {
   return (
     <Container>
       <Sidenav />
+
       <div className="page">
         <h2> New notifications:</h2>
         {notifications

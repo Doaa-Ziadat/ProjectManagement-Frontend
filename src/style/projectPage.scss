@@ -2,7 +2,7 @@
 @import "properties.scss";
 
 .section2 {
-  margin: 0;
+  margin-left: 30px;
   padding: 0;
   font-family: "Kanit", sans-serif;
   background-color: white;
@@ -12,6 +12,31 @@
   align-items: center;
   text-align: center;
   width: 100%;
+}
+
+.section2Top {
+  display: flex;
+  margin: 20px 0px 50px 50px;
+  // margin-bottom: 20px;
+}
+.section2Top h1 {
+  width: fit-content;
+  flex-basis: 80%;
+
+  // background-color: red;
+}
+.section2Top button {
+  height: 40px;
+  border: none;
+  margin-right: 20px;
+  padding: 10px;
+  box-shadow: 0px 14px 9px -15px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  background-color: #70edb9;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
 }
 
 .section2 h1 {

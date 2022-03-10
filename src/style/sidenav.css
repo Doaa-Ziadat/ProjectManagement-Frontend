@@ -1,0 +1,18 @@
+.projectList {
+  border-top: 1px solid rgba(63, 59, 59, 0.521);
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-left: 20px;
+  list-style: none;
+  display: flex;
+}
+
+.projectItem {
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+.projectItem li {
+  padding-bottom: 20px;
+}

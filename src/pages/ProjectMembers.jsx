@@ -2,30 +2,27 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "../style/projectMembers.css";
 
-const ProjectMembers = ({ projectId }) => {
+const ProjectMembers = ({ members, setMembers, projectId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [members, setMembers] = useState([]);
-
-  const getMembers = () => {
-    fetch(`http://localhost:4000/get-members/${projectId}`, {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setMembers(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //   const getMembers = () => {
+  //     fetch(`http://localhost:4000/get-members/${projectId}`, {
+  //       method: "GET",
+  //       credentials: "include",
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         setMembers(data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   };
   return (
     <div>
       <button
-        className="inviteButton"
         onClick={() => {
-          getMembers();
+          //   getMembers();
           setIsOpen(true);
         }}
       >

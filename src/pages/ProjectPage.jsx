@@ -11,6 +11,7 @@ import Invite from "./Invite";
 import ProjectMembers from "./ProjectMembers";
 import Board from "react-trello";
 import StatusLine from "./StatusLine";
+import Messages from "./Messages";
 Modal.setAppElement("#root");
 
 const Projectss = styled.ul`
@@ -71,12 +72,16 @@ const Projects = () => {
   const { from } = location.state;
   const projectId = from.id;
   const publicProject = from.publicflag;
+  const prevPublicProject = from.publicflag;
+
+  const [loading, setLoading] = useState("false");
 
   const [members, setMembers] = useState([]);
 
   // get user tasks
   useEffect(() => {
     console.log("in projects frontend");
+
     fetch(`http://localhost:4000/tasks/${projectId}`, {
       method: "GET",
       credentials: "include",
@@ -84,10 +89,11 @@ const Projects = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setTasks(data);
         const todo = data.filter((t) => t.processlabel === "To Do");
         const doing = data.filter((t) => t.processlabel === "Doing");
         const done = data.filter((t) => t.processlabel === "Done");
-        setTasks(todo.concat(doing).concat(done));
+        // setTasks(todo.concat(doing).concat(done));
 
         const length = data.length;
         const todoLength = todo.length;
@@ -424,6 +430,7 @@ const Projects = () => {
               members={members}
               setMembers={setMembers}
             />
+            <Messages />
           </div>
           <div className="section2">
             <main>

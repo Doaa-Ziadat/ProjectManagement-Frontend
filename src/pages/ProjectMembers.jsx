@@ -4,20 +4,7 @@ import "../style/projectMembers.css";
 
 const ProjectMembers = ({ members, setMembers, projectId }) => {
   const [isOpen, setIsOpen] = useState(false);
-  //   const getMembers = () => {
-  //     fetch(`http://localhost:4000/get-members/${projectId}`, {
-  //       method: "GET",
-  //       credentials: "include",
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setMembers(data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
+
   return (
     <div>
       <button
@@ -44,10 +31,6 @@ const ProjectMembers = ({ members, setMembers, projectId }) => {
               <div>{member.email}</div>
             </div>
           ))}
-
-          {/* <button className="inviteButton" onClick={getMembers}>
-            project Members
-          </button> */}
         </div>
       </Modal>
     </div>

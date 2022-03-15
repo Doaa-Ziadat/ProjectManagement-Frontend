@@ -65,9 +65,6 @@ const Projects = () => {
 
   const [tasks, setTasks] = useState([]);
 
-  const [usersId, setUsersId] = useState([]);
-  const [users, setUses] = useState([]);
-
   const location = useLocation();
   const { from } = location.state;
   const projectId = from.id;
@@ -430,7 +427,7 @@ const Projects = () => {
               members={members}
               setMembers={setMembers}
             />
-            <Messages />
+            <Messages projectId={projectId} />
           </div>
           <div className="section2">
             <main>

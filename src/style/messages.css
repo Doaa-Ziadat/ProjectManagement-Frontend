@@ -1,7 +1,6 @@
 .circle {
   height: 40px;
   width: 40px;
-  background-color: rgb(235, 154, 167);
   border-radius: 50%;
   display: inline-block;
 }
@@ -11,7 +10,7 @@
   position: absolute;
   bottom: 20px;
   height: 15px;
-  width: 70%;
+  width: 55%;
   overflow: hidden;
   resize: none;
   padding: 10px;
@@ -19,10 +18,22 @@
   margin-left: 20px;
   border-color: rgb(168, 164, 164);
 }
+input[type="file"] {
+  position: relative;
+  top: 20px;
+  left: 270px;
+  width: 87px;
+  height: fit-content;
+  border: none;
+  background-color: #94ffd3;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
 .sendButton {
   position: relative;
-  top: 18px;
-  left: 420px;
+  top: -5px;
+  left: 400px;
   width: 80px;
   height: 30px;
   border: none;
@@ -39,9 +50,59 @@
   column-gap: 18px;
 }
 
+.myMessage {
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 18px;
+}
 .messageContent {
   background-color: rgba(221, 220, 220, 0.747);
   padding: 10px;
   border-radius: 10px;
   border-bottom-left-radius: 0px;
+}
+
+.imageMessage {
+  max-width: 300px;
+  max-height: 300px;
+  list-style: none;
+  margin: 0 0.6em 0 0;
+}
+
+.modalContentMessages {
+  overflow: scroll;
+  overflow-x: hidden;
+  /* position: relative; */
+}
+
+.myName {
+  color: gray;
+  padding-left: 378px;
+  padding-bottom: 5px;
+}
+.name {
+  color: gray;
+  align-items: flex-end;
+  padding-left: 60px;
+  padding-bottom: 5px;
+}
+.myCreatedat {
+  color: gray;
+  padding-left: 210px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+.createdat {
+  color: gray;
+  padding-left: 60px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.mycolor {
+  background-color: #94ffd3;
+}
+
+.color {
+  background-color: rgb(235, 154, 167);
 }

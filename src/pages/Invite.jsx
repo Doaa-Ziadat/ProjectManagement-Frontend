@@ -7,7 +7,6 @@ import "../style/invite.css";
 function Invite({ projectId }) {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [userId, setUserId] = useState();
   const location = useLocation();
 
   const { from } = location.state;

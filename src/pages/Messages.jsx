@@ -15,7 +15,7 @@ function Messages({ projectId }) {
   console.log(projectId);
   useEffect(() => {
     console.log("in");
-    fetch(`http://localhost:4000/comments/${projectId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/comments/${projectId}`, {
       method: "GET",
       credentials: "include",
     })
@@ -34,7 +34,7 @@ function Messages({ projectId }) {
   formData.append("content", content);
 
   const sendMessage = () => {
-    fetch("http://localhost:4000/addComment", {
+    fetch(`${process.env.REACT_APP_API_URL}/addComment`, {
       method: "POST",
       headers: {
         // "Content-Type": "application/json",

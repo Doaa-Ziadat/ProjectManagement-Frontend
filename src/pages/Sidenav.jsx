@@ -6,10 +6,11 @@ import AddProject from "./AddProject";
 
 function Sidenav() {
   const [projects, setProjects] = useState([]);
+  const [edits, setEdits] = useState(false);
 
   useEffect(() => {
     console.log("in projects frontend");
-    fetch("http://localhost:4000/projects", {
+    fetch(`${process.env.REACT_APP_API_URL}/projects`, {
       method: "GET",
       credentials: "include",
     })
@@ -18,9 +19,9 @@ function Sidenav() {
         console.log(data);
         setProjects(data);
       });
-  }, []);
+  }, [edits]);
   const logout = () => {
-    fetch("http://localhost:4000/logout", {
+    fetch(`${process.env.REACT_APP_API_URL}/logout`, {
       method: "GET",
       credentials: "include",
     })
@@ -44,6 +45,7 @@ function Sidenav() {
       </a>
       <div>
         <NavbarLink to="/">Home</NavbarLink>
+
         <NavbarLink to="/notifications">Notfications</NavbarLink>
         <NavbarLink to="/">My Tasks</NavbarLink>
       </div>

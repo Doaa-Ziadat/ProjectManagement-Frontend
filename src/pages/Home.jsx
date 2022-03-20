@@ -12,22 +12,6 @@ function Home(props) {
 
   const [openNavbar, setOpenNavber] = useState(false);
   const [user, setUser] = useState(cookies.get("user"));
-  // useEffect(() => {
-  //   fetch("http://localhost:4000/getCookies", {
-  //     method: "GET",
-  //     credentials: "include",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setcookies(data);
-  //     });
-  // }, []);
-
-  // if (!cookies.loggedIn) {
-  //   return;
-  // }
-
   return (
     <div>
       {user ? (

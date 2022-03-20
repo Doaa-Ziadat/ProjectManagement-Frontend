@@ -79,7 +79,7 @@ const Projects = () => {
   useEffect(() => {
     console.log("in projects frontend");
 
-    fetch(`http://localhost:4000/tasks/${projectId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/tasks/${projectId}`, {
       method: "GET",
       credentials: "include",
     })
@@ -167,7 +167,7 @@ const Projects = () => {
   }, [from, edits]);
 
   const getMembers = () => {
-    fetch(`http://localhost:4000/get-members/${projectId}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/get-members/${projectId}`, {
       method: "GET",
       credentials: "include",
     })
@@ -206,7 +206,7 @@ const Projects = () => {
       };
     }
 
-    fetch("http://localhost:4000/add-task", {
+    fetch(`${process.env.REACT_APP_API_URL}/add-task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -234,7 +234,7 @@ const Projects = () => {
       // TODO: who assigned to it the task
     };
     console.log("edit in frontend", postData);
-    fetch("http://localhost:4000/edit-task", {
+    fetch(`${process.env.REACT_APP_API_URL}/edit-task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -264,7 +264,7 @@ const Projects = () => {
       //userId who assigned to it the task
     };
     console.log("edit in frontend", postData);
-    fetch("http://localhost:4000/edit-task", {
+    fetch(`${process.env.REACT_APP_API_URL}/edit-task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -283,7 +283,7 @@ const Projects = () => {
   const deleteTask = (cardId) => {
     console.log("on delete ");
     const postData = { id: cardId };
-    fetch("http://localhost:4000/delete-task", {
+    fetch(`${process.env.REACT_APP_API_URL}/delete-task`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

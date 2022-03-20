@@ -16,19 +16,6 @@ function Invite({ projectId }) {
     const userId = userInfo.id;
     const userEmail = userInfo.email;
     console.log("useremail in invite", userEmail);
-    //get user id by email
-    // fetch(`http://localhost:4000/getId/${email}`, {
-    //   method: "GET",
-    //   credentials: "include",
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data[0]) {
-    //       setUserId(data[0].id);
-    //     } else {
-    //       console.log("user doesn't exist ");
-    //     }
-    //   });
 
     const data = {
       email: email,

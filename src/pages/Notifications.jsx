@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidenav from "./Sidenav";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+
 import { ReactSession } from "react-client-session";
 import "../style/notifications.css";
 
@@ -8,8 +10,10 @@ function Notifications() {
   const id = ReactSession.get("userInfo").id;
   const [notifications, setNotifications] = useState([]);
   const [editsNotf, seteditsNotf] = useState(false);
+
+  const location = useLocation();
   useEffect(() => {
-    fetch(`http://localhost:4000/notifications/${id}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/notifications/${id}`, {
       method: "GET",
       credentials: "include",
     })
@@ -26,7 +30,7 @@ function Notifications() {
       projectId: projectId,
     };
 
-    fetch("http://localhost:4000/add-member", {
+    fetch(`${process.env.REACT_APP_API_URL}/add-member`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +49,7 @@ function Notifications() {
 
   const deletePending = (notficationId) => {
     const postData = { id: notficationId };
-    fetch("http://localhost:4000/delete-notification", {
+    fetch(`${process.env.REACT_APP_API_URL}/delete-notification`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,6 +93,7 @@ function Notifications() {
                         onClick={() => {
                           addMember(notf.projectid);
                           deletePending(notf.id);
+                          window.location.reload(false);
                         }}
                       >
                         Accept

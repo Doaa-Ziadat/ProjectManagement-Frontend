@@ -41,7 +41,7 @@ function AddProject() {
       publicFlag,
     };
 
-    fetch("http://localhost:4000/add-project", {
+    fetch(`${process.env.REACT_APP_API_URL}/add-project`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

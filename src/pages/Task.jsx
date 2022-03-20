@@ -38,7 +38,7 @@ export default function Task(props) {
   console.log(assignedId);
   useEffect(() => {
     console.log("in use effect");
-    fetch(`http://localhost:4000/getEmail/${task.userid}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/getEmail/${task.userid}`, {
       method: "GET",
       credentials: "include",
     })

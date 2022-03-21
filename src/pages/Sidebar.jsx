@@ -26,7 +26,7 @@ const Sidebar = () => {
       })
       .then((d) => {
         console.log(d);
-        if (d.success) window.location.href = "/";
+        if (d.success) window.location.href = "/Login";
       });
   }
   return (

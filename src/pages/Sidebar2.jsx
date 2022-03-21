@@ -9,8 +9,8 @@ const Sidebar2 = () => {
   function loginSubmit() {
     const data = { email: email, password: password };
     axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, {
-        data,
+      .post(`${process.env.REACT_APP_API_URL}/login`, data, {
+        withCredentials: true,
       })
       .then((d) => {
         // server has sent email&id

@@ -8,24 +8,21 @@ const Sidebar2 = () => {
   const [password, setPassword] = useState("");
   function loginSubmit() {
     const data = { email: email, password: password };
-    // axios
-    //   .post(
-    //     `${process.env.REACT_APP_API_URL}/login`,
-    //     {
-    //       data,
-    //     },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    //   .then((dataa) => {
-    //     return dataa.json();
-    //   })
-    //   .then((d) => {
-    //     // server has sent email&id
-    //     ReactSession.set("userInfo", { email: d.email, id: d.id });
-    //     if (d.success) window.location.href = "/";
-    //   });
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          data,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((d) => {
+        // server has sent email&id
+        ReactSession.set("userInfo", { email: d.email, id: d.id });
+        if (d.success) window.location.href = "/";
+      });
   }
 
   return (

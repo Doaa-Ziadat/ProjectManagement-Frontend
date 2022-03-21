@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactSession } from "react-client-session";
+import axios from "axios";
 
 const Sidebar2 = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function loginSubmit() {
     const data = { email: email, password: password };
-    fetch(`${process.env.REACT_APP_API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(data),
-      mode: "cors",
-      credentials: "include",
-    })
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/login`,
+        {
+          data,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .then((dataa) => {
         return dataa.json();
       })

@@ -14,6 +14,7 @@ const Sidebar2 = () => {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify(data),
+      mode: "cors",
       credentials: "include",
     })
       .then((dataa) => {

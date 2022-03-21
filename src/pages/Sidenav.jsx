@@ -26,7 +26,7 @@ function Sidenav() {
       credentials: "include",
     })
       .then(function (response) {
-        window.location.replace("http://localhost:3000/");
+        window.location.replace("/");
         if (response.redirected) {
           return window.location.replace(response.url);
         }
@@ -34,7 +34,7 @@ function Sidenav() {
       .catch(function (err) {
         console.log(err);
       });
-    window.location.href = " http://localhost:3000";
+    window.location.href = "/";
   };
   return (
     <Container>

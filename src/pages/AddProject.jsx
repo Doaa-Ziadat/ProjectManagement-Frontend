@@ -55,7 +55,7 @@ function AddProject() {
       })
       .then((d) => {
         console.log(d);
-        if (d.success) window.location.href = " http://localhost:3000/";
+        if (d.success) window.location.href = "/";
       });
   }
   return (

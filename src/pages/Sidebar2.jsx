@@ -22,7 +22,7 @@ const Sidebar2 = () => {
       .then((d) => {
         // server has sent email&id
         ReactSession.set("userInfo", { email: d.email, id: d.id });
-        if (d.success) window.location.href = "/";
+        // if (d.success) window.location.href = "/";
       });
   }
 

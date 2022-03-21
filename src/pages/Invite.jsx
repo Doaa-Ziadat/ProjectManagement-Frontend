@@ -25,7 +25,7 @@ function Invite({ projectId }) {
       projectName: from.name,
     };
     // add user in the project_member_pending table
-    fetch("http://localhost:4000/add-member-pending", {
+    fetch(`${process.env.REACT_APP_API_URL}/add-member-pending`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

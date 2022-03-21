@@ -15,6 +15,7 @@ const Sidebar2 = () => {
       },
       body: JSON.stringify(data),
       mode: "cors",
+      credentials: "include",
     })
       .then((dataa) => {
         return dataa.json();

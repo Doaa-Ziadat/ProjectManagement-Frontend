@@ -88,73 +88,89 @@ function Messages({ projectId }) {
           X
         </button>
         <h1> Messages</h1>{" "}
-        <div style={{ position: "relative" }}>
-          {comments.map((message) => (
-            <div>
-              <div className={message.userid == userId ? "myName" : "name"}>
-                {message.userid == userId ? "Me" : message.name}
-              </div>
-              <div
-                className={message.userid == userId ? "myMessage" : "message"}
-              >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "auto",
+            height: "80%",
+          }}
+        >
+          <div>
+            {comments.map((message) => (
+              <div>
+                <div className={message.userid == userId ? "myName" : "name"}>
+                  {message.userid == userId ? "Me" : message.name}
+                </div>
+                <div
+                  className={message.userid == userId ? "myMessage" : "message"}
+                >
+                  <div
+                    className={
+                      message.userid == userId
+                        ? "mycolor circle"
+                        : "color circle"
+                    }
+                  ></div>
+                  <div className="messageContent">
+                    {message.image != " " ? (
+                      <img
+                        className="imageMessage"
+                        src={`http://localhost:4000/${message.image}`}
+                        alt="failed"
+                      />
+                    ) : null}
+                    {message.content}
+                  </div>
+                </div>
                 <div
                   className={
-                    message.userid == userId ? "mycolor circle" : "color circle"
+                    message.userid == userId ? "myCreatedat" : "createdat"
                   }
-                ></div>
-                <div className="messageContent">
-                  {message.image != " " ? (
-                    <img
-                      className="imageMessage"
-                      src={`http://localhost:4000/${message.image}`}
-                      alt="failed"
-                    />
-                  ) : null}
-                  {message.content}
+                >
+                  {message.createdat}
                 </div>
               </div>
-              <div
-                className={
-                  message.userid == userId ? "myCreatedat" : "createdat"
-                }
-              >
-                {message.createdat}
-              </div>
-            </div>
-          ))}{" "}
+            ))}
+          </div>
           <div
             style={{
               backgroundColor: "#252628",
-              width: "600px",
+              width: "100%",
               height: "70px",
-              position: "absolute",
-              bottom: "-100px",
-              left: "10px",
-              marginLeft: "-30px",
+              marginTop: "auto",
               marginRight: "0px",
+              marginTop: "auto",
+              alignSelf: "flex-end",
             }}
           >
-            <textarea
-              className="inputMessage"
-              name="text"
-              id="text"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              // onInput="this.parentNode.dataset.replicatedValue = this.value"
+            <form
+              action="/profile"
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+              method="post"
+              encType="multipart/form-data"
             >
-              {" "}
-            </textarea>{" "}
-            <form action="/profile" method="post" encType="multipart/form-data">
+              <textarea
+                className="inputMessage"
+                name="text"
+                id="text"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                // onInput="this.parentNode.dataset.replicatedValue = this.value"
+              />
               <input
                 type="file"
                 name="image"
                 size="large"
                 onChange={(e) => setImage(e.target.files[0])} // if multiply withput [0]
               />
+              <button className="sendButton" onClick={sendMessage}>
+                send
+              </button>
             </form>
-            <button className="sendButton" onClick={sendMessage}>
-              send
-            </button>
             <br />
           </div>
         </div>

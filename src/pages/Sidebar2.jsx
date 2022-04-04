@@ -8,14 +8,23 @@ const Sidebar2 = () => {
   const [password, setPassword] = useState("");
   function loginSubmit() {
     const data = { email: email, password: password };
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, data, {
-        withCredentials: true,
+    fetch(`${process.env.REACT_APP_API_URL}/login`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify(data),
+      credentials: "include",
+    })
+      .then((dataa) => {
+        return dataa.json();
       })
       .then((d) => {
         // server has sent email&id
         ReactSession.set("userInfo", { email: d.email, id: d.id });
-        if (d.success) window.location.href = "/";
+        if (d.success) window.location.href = " http://localhost:3000";
       });
   }
 

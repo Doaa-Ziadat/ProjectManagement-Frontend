@@ -10,7 +10,6 @@ const Sidebar2 = () => {
     const data = { email: email, password: password };
     fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
-      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',

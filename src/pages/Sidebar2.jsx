@@ -24,7 +24,7 @@ const Sidebar2 = () => {
       .then((d) => {
         // server has sent email&id
         ReactSession.set("userInfo", { email: d.email, id: d.id });
-        if (d.success) window.location.href = " http://localhost:3000";
+        if (d.success) window.location.href = "/";
       });
   }
 

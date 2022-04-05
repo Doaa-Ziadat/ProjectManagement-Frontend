@@ -25,12 +25,14 @@ const ProjectMembers = ({ members, setMembers, projectId }) => {
         </button>
         <div className="modalContent">
           <h1> project teammates :</h1>
-          {members.map((member) => (
-            <div>
-              <h3>{member.name}</h3>
-              <div>{member.email}</div>
-            </div>
-          ))}
+          {members
+            .filter((member) => member.id != 0)
+            .map((member) => (
+              <div>
+                <h3>{member.name}</h3>
+                <div>{member.email}</div>
+              </div>
+            ))}
         </div>
       </Modal>
     </div>

@@ -174,7 +174,8 @@ const Projects = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setMembers(data);
+        setMembers([{ id: 0, email: "--------------", name: "" }].concat(data));
+        // setMembers(data);
       })
       .catch((error) => {
         console.log(error);

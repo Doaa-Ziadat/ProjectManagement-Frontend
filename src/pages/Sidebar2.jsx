@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactSession } from "react-client-session";
-import axios from "axios";
 
 const Sidebar2 = () => {
   const [email, setEmail] = useState("");
